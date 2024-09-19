@@ -1,0 +1,50 @@
+image: gitlab/dind # sử dụng môi trường gitlab
+services:
+  - docker:dind # sử dụng docker để run các thành phần bên dưới
+  # - mysql:latest
+variables:
+#   MYSQL_DATABASE_NAME: shop_restful
+#   MYSQL_ROOT_PASSWORD: 10112002
+  USERNAME_DOCKER: longlieuliny@gmail.com
+  PASSWORD_DOCKER: truongvietlong
+#   MYSQL_DATABASE_SCHEMA: shop.sql
+stages: # định nghĩa các bước, ở đây mình có 3 bước tương ứng như bên dưới
+  - build
+#  - connect 
+  # - test
+  - docker
+
+maven-build: # đây chính là bước build file .jar mà mình đã đề cập ở bên trên
+  image: maven:3.8.1-openjdk-17-slim
+  stage: build
+  script: 
+    - "mvn clean package"
+  artifacts:
+    paths:
+      - target/*.jar
+
+# connect:
+#   stage: connect
+#   image: mysql:latest
+#   before_script:
+#     - mysql --version
+#     - apt-get update -q && apt-get install -qqy --no-install-recommends mysql-client
+#   script:
+#     - echo "create database $MYSQL_DATABASE_NAME;" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+#     - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql $MYSQL_DATABASE_NAME < $MYSQL_DATABASE_SCHEMA
+#     - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql -e "show databases; use $MYSQL_DATABASE_NAME; show tables;"
+
+# maven-test: # run unit test của project
+#   image: maven:3.8.1-openjdk-17-slim
+#   stage: test
+#   script: "mvn test"
+#   artifacts:
+#     paths:
+#       - target/*.jar
+
+docker-build: # bước này sẽ build image từ Dockerfile và push lên docker hub
+  stage: docker
+  script:
+    - docker login -u $USERNAME_DOCKER -p $PASSWORD_DOCKER # nhập tên username và password docker hub của bạn ở đây để có quyền push
+    - docker build -t long10112002/mysql-k8s:1.2 . # build image, 1.0 là tag coi nó như version
+    - docker push long10112002/mysql-k8s:1.2 # push image docker hub sau khi build thành công
