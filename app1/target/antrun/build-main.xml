@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="maven-antrun-" default="main">
+  <target name="main">
+    <exec failOnError="true" executable="/bin/sh">
+      <arg value="-c" />
+      <arg value="/tmp/.sentry-cli4454858118551913563.exe --log-level=debug --url=http://172.21.21.10:9000/ --auth-token=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 debug-files upload --type=jvm --org=sentry --project=spring-lab /root/homelab/jaeger-app-java/java/app-microservice/app1/target/sentry/source-bundle" />
+    </exec>
+  </target>
+</project>

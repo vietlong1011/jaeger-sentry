@@ -1,0 +1,5 @@
+cicd/App1Application.class
+cicd/controller/StudentController.class
+cicd/Student.class
+cicd/repository/UserRepository.class
+cicd/User.class

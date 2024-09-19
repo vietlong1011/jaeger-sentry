@@ -1,0 +1,13 @@
+<!-- <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+    <profiles>
+        <profile>
+            <id>sentry</id>
+            <properties>
+                <sentry.auth.token>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</sentry.auth.token>
+            </properties>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>sentry</activeProfile>
+    </activeProfiles>
+</settings> -->
